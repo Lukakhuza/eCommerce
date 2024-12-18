@@ -1,0 +1,12 @@
+img {
+    width: auto;
+    height: 300px;
+}
+
+ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 5;
+    /* flex-direction: row; */
+    /* flex */
+}

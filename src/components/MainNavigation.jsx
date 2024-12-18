@@ -5,7 +5,7 @@ function MainNavigation() {
   return (
     <>
       <header>
-        <ul>
+        <ul className={classes["navigation-bar"]}>
           <li>
             <NavLink
               to="/"
@@ -18,7 +18,7 @@ function MainNavigation() {
           </li>
           <li>
             <NavLink
-              to="/products"
+              to="products"
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }

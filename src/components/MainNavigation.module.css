@@ -1,3 +1,9 @@
 .active {
     color: yellow;
 }
+
+.navigation-bar>li {
+    background-color: blue;
+    margin: 15px;
+    list-style-type: none;
+}

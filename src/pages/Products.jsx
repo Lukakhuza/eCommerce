@@ -1,38 +1,19 @@
-import { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
+import ProductsList from "./ProductsList";
 
 function ProductsPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [fetchedProducts, setFetchedProducts] = useState();
-  const [error, setError] = useState();
-
-  useEffect(() => {
-    async function fetchProducts() {
-      setIsLoading(true);
-      const response = await fetch("https://dummyjson.com/products");
-      if (!response.ok) {
-        setError("Fetching Products Failed.");
-      } else {
-        const resData = await response.json();
-        setFetchedProducts(resData.products);
-      }
-      setIsLoading(false);
-    }
-
-    fetchProducts();
-    console.log(fetchedProducts);
-  }, []);
-
-  // console.log();
-
-  return (
-    <>
-      <div>
-        {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-      </div>
-      {!isLoading && fetchedProducts && <p>We have products</p>}
-    </>
-  );
+  const products = useLoaderData();
+  return <ProductsList products={products} />;
 }
 
 export default ProductsPage;
+
+export async function loader() {
+  const response = await fetch("https://dummyjson.com/products");
+  if (!response.ok) {
+    //  ...
+  } else {
+    const resData = await response.json();
+    return resData.products;
+  }
+}

@@ -1,12 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState } from "react";
-import icon from "/icon.png";
-// import viteLogo from "/vite.svg";
 import HomePage from "./pages/Home";
 import "./App.css";
-import ProductsPage from "./pages/Products";
-import ProductDetailPage from "./pages/ProductDetail";
+import ProductsPage, { loader as productsLoader } from "./pages/Products";
+import ProductDetailPage, {
+  loader as productDetailLoader,
+} from "./pages/ProductDetail";
 import RootLayout from "./pages/Root";
+import ProductsRootLayout from "./pages/ProductsRoot";
 import ErrorPage from "./pages/Error";
 
 const router = createBrowserRouter([
@@ -15,9 +16,25 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <HomePage /> },
-      { path: "/products", element: <ProductsPage /> },
-      { path: "/products/:productId", element: <ProductDetailPage /> },
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "products",
+        element: <ProductsRootLayout />,
+        children: [
+          {
+            index: true,
+            element: <ProductsPage />,
+            loader: productsLoader,
+          },
+          {
+            path: ":productId",
+            element: <ProductDetailPage loader={productDetailLoader} />,
+          },
+        ],
+      },
     ],
   },
 ]);
